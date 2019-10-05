@@ -1,11 +1,3 @@
-//
-//  MobileConfig.swift
-//  FrontPage
-//
-//  Created by Michal/Jim on 04/10/2019.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /**
