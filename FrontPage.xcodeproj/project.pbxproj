@@ -17,6 +17,11 @@
 		9F5B107A20AC57D100BAE436 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B107820AC57D100BAE436 /* Main.storyboard */; };
 		9F5B107C20AC57D200BAE436 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B107B20AC57D200BAE436 /* Assets.xcassets */; };
 		9F5B107F20AC57D200BAE436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B107D20AC57D200BAE436 /* LaunchScreen.storyboard */; };
+		BFCB5DAA234788DD00E80A5C /* ConfigParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB5DA9234788DD00E80A5C /* ConfigParser.swift */; };
+		BFCB5DAC2347895A00E80A5C /* MobileConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB5DAB2347895A00E80A5C /* MobileConfig.swift */; };
+		BFCB5DAE23478A1200E80A5C /* mobile-services.json in Resources */ = {isa = PBXBuildFile; fileRef = BFCB5DAD23478A1200E80A5C /* mobile-services.json */; };
+		BFCB5DB023478A3000E80A5C /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB5DAF23478A3000E80A5C /* ServiceConfig.swift */; };
+		BFCB5DB423479CAB00E80A5C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCB5DB323479CAB00E80A5C /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +52,11 @@
 		9F5B107B20AC57D200BAE436 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F5B107E20AC57D200BAE436 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F5B108020AC57D200BAE436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BFCB5DA9234788DD00E80A5C /* ConfigParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigParser.swift; sourceTree = "<group>"; };
+		BFCB5DAB2347895A00E80A5C /* MobileConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileConfig.swift; sourceTree = "<group>"; };
+		BFCB5DAD23478A1200E80A5C /* mobile-services.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-services.json"; sourceTree = "<group>"; };
+		BFCB5DAF23478A3000E80A5C /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
+		BFCB5DB323479CAB00E80A5C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +113,11 @@
 				9F5B107B20AC57D200BAE436 /* Assets.xcassets */,
 				9F5B107D20AC57D200BAE436 /* LaunchScreen.storyboard */,
 				9F5B108020AC57D200BAE436 /* Info.plist */,
+				BFCB5DA9234788DD00E80A5C /* ConfigParser.swift */,
+				BFCB5DAB2347895A00E80A5C /* MobileConfig.swift */,
+				BFCB5DAD23478A1200E80A5C /* mobile-services.json */,
+				BFCB5DAF23478A3000E80A5C /* ServiceConfig.swift */,
+				BFCB5DB323479CAB00E80A5C /* Config.swift */,
 			);
 			path = FrontPage;
 			sourceTree = "<group>";
@@ -183,6 +198,7 @@
 				9F12A39520AC5A310097DC1B /* PostListViewController.graphql in Resources */,
 				9F5B107A20AC57D100BAE436 /* Main.storyboard in Resources */,
 				9F12A39220AC5A310097DC1B /* PostTableViewCell.graphql in Resources */,
+				BFCB5DAE23478A1200E80A5C /* mobile-services.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +264,11 @@
 				9F12A39120AC5A310097DC1B /* API.swift in Sources */,
 				9F12A39320AC5A310097DC1B /* PostListViewController.swift in Sources */,
 				9F5B107520AC57D100BAE436 /* AppDelegate.swift in Sources */,
+				BFCB5DB023478A3000E80A5C /* ServiceConfig.swift in Sources */,
 				9F12A39420AC5A310097DC1B /* PostTableViewCell.swift in Sources */,
+				BFCB5DB423479CAB00E80A5C /* Config.swift in Sources */,
+				BFCB5DAA234788DD00E80A5C /* ConfigParser.swift in Sources */,
+				BFCB5DAC2347895A00E80A5C /* MobileConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
