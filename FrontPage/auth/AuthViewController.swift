@@ -34,6 +34,8 @@ class AuthViewController: UIViewController {
   }
 }
 
+// MARK: Authentitcating with code exchange
+
 extension AuthViewController {
   func authWithAutoCodeExchange() {
     
@@ -138,7 +140,6 @@ extension AuthViewController {
       if let authState = authState {
         self.setAuthState(authState)
         self.logMessage("Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken ?? "DEFAULT_TOKEN")")
-        AppDelegate.auth = true
         self.changeView()
         
       } else {
@@ -206,7 +207,7 @@ extension AuthViewController {
   
   func changeView() {
     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! PostListViewController
+    let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! PostTaskViewController
     self.present(newViewController, animated: true, completion: nil)
     
   }

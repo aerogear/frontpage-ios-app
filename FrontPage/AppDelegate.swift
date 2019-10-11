@@ -4,10 +4,32 @@ import AppAuth
 
 let config = Config()
 let syncUrl = config.getConfiguration("sync-app")
+let syncConfig = syncUrl.config ?? ["error": JSONValue.bool(false)]
+let syncWs = syncConfig["websocketUrl"]?.getString() ?? "error";
+
+var apollo: ApolloClient = {
+  let authPayloads = [
+    "Authorization": "Bearer "
+  ]
+  let configuration = URLSessionConfiguration.default
+  configuration.httpAdditionalHeaders = authPayloads
+  
+  let map: GraphQLMap = authPayloads
+  let wsEndpointURL = URL(string: syncWs)!
+  let endpointURL = URL(string: syncUrl.url)!
+  let websocket = WebSocketTransport(request: URLRequest(url: wsEndpointURL), connectingPayload: map)
+  
+  let splitNetworkTransport = SplitNetworkTransport(
+    httpNetworkTransport: HTTPNetworkTransport(
+      url: endpointURL,
+      configuration: configuration
+    ),
+    webSocketNetworkTransport: websocket
+  )
+  return ApolloClient(networkTransport: splitNetworkTransport)
+}()
 
 
-// Change localhost to your machine's local IP address when running from a device
-let apollo = ApolloClient(url: URL(string: syncUrl.url)!)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     apollo.cacheKeyForObject = { $0["id"] }
     return true
   }
-
+  
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-      if let authorizationFlow = self.currentAuthorizationFlow, authorizationFlow.resumeExternalUserAgentFlow(with: url) {
-          self.currentAuthorizationFlow = nil
-          return true
-      }
-
-      return false
+    if let authorizationFlow = self.currentAuthorizationFlow, authorizationFlow.resumeExternalUserAgentFlow(with: url) {
+      self.currentAuthorizationFlow = nil
+      return true
+    }
+    
+    return false
   }
   
 }
