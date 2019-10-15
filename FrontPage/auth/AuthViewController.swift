@@ -15,8 +15,10 @@ let kRedirectURI: String = "com.myapp://restore";
 let AuthStateKey: String = "authState";
 
 class AuthViewController: UIViewController {
-  
+  private static var token : String!
   private var authState: OIDAuthState?
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,18 +27,14 @@ class AuthViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if (authState?.isAuthorized ?? false){
-      self.setAuthState(nil)
-      self.changeView()
-    } else {
-      self.authWithAutoCodeExchange()
-    }
+    self.authWithAutoCodeExchange()
   }
 }
 
 // MARK: Authentitcating with code exchange
 
 extension AuthViewController {
+  
   func authWithAutoCodeExchange() {
     
     guard let issuer = URL(string: kIssuer) else {
@@ -138,8 +136,10 @@ extension AuthViewController {
     appDelegate.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: self) { authState, error in
       
       if let authState = authState {
+        
         self.setAuthState(authState)
-        self.logMessage("Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken ?? "DEFAULT_TOKEN")")
+        let newToken = authState.lastTokenResponse?.accessToken
+        self.saveToken(token: newToken)
         self.changeView()
         
       } else {
@@ -210,6 +210,14 @@ extension AuthViewController {
     let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! TaskListViewController
     self.present(newViewController, animated: true, completion: nil)
     
+  }
+  
+  func getToken() -> String! {
+    return AuthViewController.self.token!
+  }
+  
+  func saveToken(token: String!){
+    AuthViewController.self.token = token
   }
   
 }
