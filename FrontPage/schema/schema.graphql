@@ -1,0 +1,39 @@
+mutation deleteTask ($id: ID!){
+deleteTask(id: $id)
+}
+
+mutation createTask ($title: String!, $description: String!, $status: TaskStatus!) {
+createTask(title: $title, description: $description, status: $status) {
+...TaskFields
+}
+}
+
+subscription delete{
+taskDeleted{
+...TaskFields
+}
+}
+
+subscription add{
+taskAdded{
+...TaskFields
+}
+}
+
+query allTasks {
+allTasks {
+...TaskFields
+}
+}
+
+fragment TaskFields on Task {
+  id
+  title
+  version
+  description
+  status
+}
+
+
+
+

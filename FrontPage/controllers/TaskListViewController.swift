@@ -1,8 +1,9 @@
 import UIKit
 import Apollo
 
-class PostListViewController: UITableViewController {
-  var posts: [AllPostsQuery.Data.Post]? {
+
+class TaskListViewController: UITableViewController {
+  var tasks: [AllTasksQuery.Data.AllTask]? {
     didSet {
       tableView.reloadData()
     }
@@ -19,19 +20,21 @@ class PostListViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
+    deleteSubscription()
+    addSubscription()
     loadData()
   }
   
   // MARK: - Data loading
   
-  var watcher: GraphQLQueryWatcher<AllPostsQuery>?
+  var watcher: GraphQLQueryWatcher<AllTasksQuery>?
   
   func loadData() {
-    watcher = apollo.watch(query: AllPostsQuery()) { result in
+    watcher = apollo.watch(query: AllTasksQuery()) { result in
       switch result {
       case .success(let graphQLResult):
-        self.posts = graphQLResult.data?.posts
+        
+        self.tasks = graphQLResult.data?.allTasks as? [AllTasksQuery.Data.AllTask]
       case .failure(let error):
         NSLog("Error while fetching query: \(error.localizedDescription)")
       }
@@ -41,7 +44,7 @@ class PostListViewController: UITableViewController {
   // MARK: - UITableViewDataSource
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return posts?.count ?? 0
+    return tasks?.count ?? 0
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,12 +52,34 @@ class PostListViewController: UITableViewController {
       fatalError("Could not dequeue PostTableViewCell")
     }
     
-    guard let post = posts?[indexPath.row] else {
+    guard let task = tasks?[indexPath.row] else {
       fatalError("Could not find post at row \(indexPath.row)")
     }
     
-    cell.configure(with: post.fragments.postDetails)
+    cell.configure(with: task.fragments.taskFields)
     
     return cell
   }
+  
+  @IBAction func addTask(_ sender: UIButton) {
+    self.performSegue(withIdentifier: "AddTaskSegue", sender: self)
+    
+  }
+  
+  // MARK: - Subscriptions
+  
+  func deleteSubscription(){
+    apollo.subscribe(subscription: DeleteSubscription()) { result in
+      self.watcher?.refetch()
+    }
+  }
+  
+  func addSubscription(){
+    apollo.subscribe(subscription: AddSubscription()) { result in
+      self.watcher?.refetch()
+    }
+  }
+  
 }
+
+

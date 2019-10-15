@@ -1,0 +1,29 @@
+{
+  "clientId": "showcase-app",
+  "namespace": "mobile-developer-console",
+  "services": [
+    {
+      "config": {
+        "auth-server-url": "https://sso-user-sso.apps.ire-586a.open.redhat.com/auth",
+        "confidential-port": 0,
+        "public-client": true,
+        "realm": "showcase-app-realm",
+        "resource": "showcase-app-client",
+        "ssl-required": "external"
+      },
+      "id": "66882e83-e917-11e9-909a-0a07b338f92c",
+      "name": "keycloak",
+      "type": "keycloak",
+      "url": "https://sso-user-sso.apps.ire-586a.open.redhat.com/auth"
+    },
+    {
+      "config": {
+        "websocketUrl": "wss://ionic-showcase-server-default.apps.ire-586a.open.redhat.com/graphql"
+      },
+      "id": "ff914243-eb4c-11e9-b502-0a07b338f92c",
+      "name": "sync-app",
+      "type": "sync-app",
+      "url": "https://ionic-showcase-server-default.apps.ire-586a.open.redhat.com/graphql"
+    }
+  ]
+}

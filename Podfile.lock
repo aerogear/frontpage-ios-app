@@ -1,18 +1,33 @@
 PODS:
-  - Apollo (0.16.1):
-    - Apollo/Core (= 0.16.1)
-  - Apollo/Core (0.16.1)
+  - Apollo (0.13.0):
+    - Apollo/Core (= 0.13.0)
+  - Apollo/Core (0.13.0)
+  - Apollo/WebSocket (0.13.0):
+    - Apollo/Core
+    - Starscream (= 3.1.0)
+  - AppAuth (1.2.0):
+    - AppAuth/Core (= 1.2.0)
+    - AppAuth/ExternalUserAgent (= 1.2.0)
+  - AppAuth/Core (1.2.0)
+  - AppAuth/ExternalUserAgent (1.2.0)
+  - Starscream (3.1.0)
 
 DEPENDENCIES:
-  - Apollo (~> 0.16.1)
+  - Apollo
+  - Apollo/WebSocket
+  - AppAuth
 
 SPEC REPOS:
   trunk:
     - Apollo
+    - AppAuth
+    - Starscream
 
 SPEC CHECKSUMS:
-  Apollo: 2b08fca48664d25e1dc8635f0ad128483ccba43b
+  Apollo: 603a59c12046c50f3188f4e5dfdae080d20ded55
+  AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
 
-PODFILE CHECKSUM: a8f6e074e30590f8b99a131b9f8298fedc2353bc
+PODFILE CHECKSUM: 6d959b35ab48da66d4ee5261243adce690b44f3e
 
 COCOAPODS: 1.8.1
