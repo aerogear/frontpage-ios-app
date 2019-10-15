@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17FF80D82354AE6F005F11E9 /* UnifiedPushConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80D72354AE6F005F11E9 /* UnifiedPushConfig.swift */; };
+		17FF80DB2354AEC9005F11E9 /* UnifiedPushCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80DA2354AEC9005F11E9 /* UnifiedPushCredentials.swift */; };
+		17FF80DD2354AF0C005F11E9 /* UnifiedPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80DC2354AF0C005F11E9 /* UnifiedPush.swift */; };
+		17FF80E02354B2E5005F11E9 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80DF2354B2E5005F11E9 /* HttpRequest.swift */; };
+		17FF80E22354B40F005F11E9 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80E12354B40F005F11E9 /* HttpResponse.swift */; };
+		17FF80E42354B5C7005F11E9 /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF80E32354B5C7005F11E9 /* Http.swift */; };
 		618A0697D2E17B2DB176DE7D /* Pods_FrontPage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79834A5F2BAB609552638617 /* Pods_FrontPage.framework */; };
 		9F12A39120AC5A310097DC1B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F12A38C20AC5A300097DC1B /* API.swift */; };
 		9F5B107520AC57D100BAE436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B107420AC57D100BAE436 /* AppDelegate.swift */; };
@@ -41,6 +47,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17FF80D72354AE6F005F11E9 /* UnifiedPushConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPushConfig.swift; sourceTree = "<group>"; };
+		17FF80DA2354AEC9005F11E9 /* UnifiedPushCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPushCredentials.swift; sourceTree = "<group>"; };
+		17FF80DC2354AF0C005F11E9 /* UnifiedPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedPush.swift; sourceTree = "<group>"; };
+		17FF80DF2354B2E5005F11E9 /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		17FF80E12354B40F005F11E9 /* HttpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
+		17FF80E32354B5C7005F11E9 /* Http.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
 		530175793A47602FFA35560B /* Pods-FrontPage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FrontPage.release.xcconfig"; path = "Pods/Target Support Files/Pods-FrontPage/Pods-FrontPage.release.xcconfig"; sourceTree = "<group>"; };
 		6972FD3A127F23953FA4CF6E /* Pods-FrontPage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FrontPage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FrontPage/Pods-FrontPage.debug.xcconfig"; sourceTree = "<group>"; };
 		79834A5F2BAB609552638617 /* Pods_FrontPage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FrontPage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +89,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17FF80D6235499F2005F11E9 /* push */ = {
+			isa = PBXGroup;
+			children = (
+				17FF80D72354AE6F005F11E9 /* UnifiedPushConfig.swift */,
+				17FF80DA2354AEC9005F11E9 /* UnifiedPushCredentials.swift */,
+				17FF80DC2354AF0C005F11E9 /* UnifiedPush.swift */,
+			);
+			path = push;
+			sourceTree = "<group>";
+		};
+		17FF80DE2354B2B4005F11E9 /* http */ = {
+			isa = PBXGroup;
+			children = (
+				17FF80DF2354B2E5005F11E9 /* HttpRequest.swift */,
+				17FF80E12354B40F005F11E9 /* HttpResponse.swift */,
+				17FF80E32354B5C7005F11E9 /* Http.swift */,
+			);
+			path = http;
+			sourceTree = "<group>";
+		};
 		5C7C4B6BBAB93599EB5D3699 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +141,8 @@
 		9F5B107320AC57D100BAE436 /* FrontPage */ = {
 			isa = PBXGroup;
 			children = (
+				17FF80DE2354B2B4005F11E9 /* http */,
+				17FF80D6235499F2005F11E9 /* push */,
 				BF0A73C02350D5B100EBB747 /* auth */,
 				BF0A73C22350D5B100EBB747 /* config */,
 				BF0A73CC2350D5B100EBB747 /* controllers */,
@@ -302,12 +336,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17FF80E22354B40F005F11E9 /* HttpResponse.swift in Sources */,
 				BF0A73DC2350D5B100EBB747 /* PostTableViewCell.swift in Sources */,
 				9F12A39120AC5A310097DC1B /* API.swift in Sources */,
+				17FF80DD2354AF0C005F11E9 /* UnifiedPush.swift in Sources */,
 				BF0A73D32350D5B100EBB747 /* ServiceConfig.swift in Sources */,
 				BF8559FA2357243B006F0108 /* Config.swift in Sources */,
+				17FF80E42354B5C7005F11E9 /* Http.swift in Sources */,
 				BF0A73D62350D5B100EBB747 /* MobileConfig.swift in Sources */,
+				17FF80E02354B2E5005F11E9 /* HttpRequest.swift in Sources */,
 				BF0A73D52350D5B100EBB747 /* ConfigParser.swift in Sources */,
+				17FF80DB2354AEC9005F11E9 /* UnifiedPushCredentials.swift in Sources */,
+				BF0A73D42350D5B100EBB747 /* Config.swift in Sources */,
+				17FF80D82354AE6F005F11E9 /* UnifiedPushConfig.swift in Sources */,
 				BF0A73D22350D5B100EBB747 /* AuthViewController.swift in Sources */,
 				BF0A73DB2350D5B100EBB747 /* TaskListViewController.swift in Sources */,
 				BF0A73DA2350D5B100EBB747 /* AddTaskViewController.swift in Sources */,
@@ -458,12 +499,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GHPBX39444;
 				INFOPLIST_FILE = FrontPage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.examples.FrontPage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aerogear.examples.FrontPage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -476,12 +518,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GHPBX39444;
 				INFOPLIST_FILE = FrontPage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.examples.FrontPage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aerogear.examples.FrontPage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

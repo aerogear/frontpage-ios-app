@@ -5,4 +5,5 @@ target 'FrontPage' do
   pod 'Apollo'
   pod 'AppAuth'
   pod 'Apollo/WebSocket'
+  pod 'Alamofire'
 end
