@@ -10,7 +10,7 @@
         <!--Posts-->
         <scene sceneID="Xxi-hM-Y9P">
             <objects>
-                <tableViewController storyboardIdentifier="PostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vrK-5c-2N3" customClass="PostTaskViewController" customModule="FrontPage" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vrK-5c-2N3" customClass="TaskListViewController" customModule="FrontPage" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="89" sectionHeaderHeight="28" sectionFooterHeight="28" id="It9-xP-cez">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +151,7 @@
                     <navigationItem key="navigationItem" id="Rhj-BE-y3S"/>
                     <connections>
                         <outlet property="descriptionField" destination="bwt-pa-uku" id="aK6-na-hHN"/>
-                        <outlet property="nameField" destination="gBA-1G-xnd" id="9kX-8d-vmd"/>
+                        <outlet property="titleField" destination="gBA-1G-xnd" id="9kX-8d-vmd"/>
                         <segue destination="vrK-5c-2N3" kind="presentation" identifier="PostListController" modalPresentationStyle="currentContext" id="GNQ-bY-mpt"/>
                     </connections>
                 </viewController>

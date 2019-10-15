@@ -20,9 +20,9 @@
 		BF0A73D72350D5B100EBB747 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73C82350D5B100EBB747 /* LaunchScreen.storyboard */; };
 		BF0A73D82350D5B100EBB747 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73CA2350D5B100EBB747 /* schema.json */; };
 		BF0A73DA2350D5B100EBB747 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73CD2350D5B100EBB747 /* AddTaskViewController.swift */; };
-		BF0A73DB2350D5B100EBB747 /* PostTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73CE2350D5B100EBB747 /* PostTaskViewController.swift */; };
+		BF0A73DB2350D5B100EBB747 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73CE2350D5B100EBB747 /* TaskListViewController.swift */; };
 		BF0A73DC2350D5B100EBB747 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73CF2350D5B100EBB747 /* PostTableViewCell.swift */; };
-		BF0A73DD2350D5B100EBB747 /* PostTaskViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73D12350D5B100EBB747 /* PostTaskViewController.graphql */; };
+		BF0A73DD2350D5B100EBB747 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73D12350D5B100EBB747 /* schema.graphql */; };
 		BF0A73DF2350D65600EBB747 /* mobile-services.json in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73DE2350D65600EBB747 /* mobile-services.json */; };
 		BF0A74012350DB1B00EBB747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73FF2350DB1B00EBB747 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -58,9 +58,9 @@
 		BF0A73C92350D5B100EBB747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF0A73CA2350D5B100EBB747 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		BF0A73CD2350D5B100EBB747 /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
-		BF0A73CE2350D5B100EBB747 /* PostTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTaskViewController.swift; sourceTree = "<group>"; };
+		BF0A73CE2350D5B100EBB747 /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		BF0A73CF2350D5B100EBB747 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
-		BF0A73D12350D5B100EBB747 /* PostTaskViewController.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PostTaskViewController.graphql; sourceTree = "<group>"; };
+		BF0A73D12350D5B100EBB747 /* schema.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphql; sourceTree = "<group>"; };
 		BF0A73DE2350D65600EBB747 /* mobile-services.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-services.json"; sourceTree = "<group>"; };
 		BF0A74002350DB1B00EBB747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				BF0A73CD2350D5B100EBB747 /* AddTaskViewController.swift */,
-				BF0A73CE2350D5B100EBB747 /* PostTaskViewController.swift */,
+				BF0A73CE2350D5B100EBB747 /* TaskListViewController.swift */,
 				BF0A73CF2350D5B100EBB747 /* PostTableViewCell.swift */,
 			);
 			path = controllers;
@@ -174,7 +174,7 @@
 		BF0A73D02350D5B100EBB747 /* schema */ = {
 			isa = PBXGroup;
 			children = (
-				BF0A73D12350D5B100EBB747 /* PostTaskViewController.graphql */,
+				BF0A73D12350D5B100EBB747 /* schema.graphql */,
 			);
 			path = schema;
 			sourceTree = "<group>";
@@ -245,7 +245,7 @@
 				BF0A74012350DB1B00EBB747 /* Main.storyboard in Resources */,
 				BF0A73D82350D5B100EBB747 /* schema.json in Resources */,
 				BF0A73D72350D5B100EBB747 /* LaunchScreen.storyboard in Resources */,
-				BF0A73DD2350D5B100EBB747 /* PostTaskViewController.graphql in Resources */,
+				BF0A73DD2350D5B100EBB747 /* schema.graphql in Resources */,
 				9F5B107F20AC57D200BAE436 /* LaunchScreen.storyboard in Resources */,
 				9F5B107C20AC57D200BAE436 /* Assets.xcassets in Resources */,
 				BF0A73DF2350D65600EBB747 /* mobile-services.json in Resources */,
@@ -318,7 +318,7 @@
 				BF0A73D52350D5B100EBB747 /* ConfigParser.swift in Sources */,
 				BF0A73D42350D5B100EBB747 /* Config.swift in Sources */,
 				BF0A73D22350D5B100EBB747 /* AuthViewController.swift in Sources */,
-				BF0A73DB2350D5B100EBB747 /* PostTaskViewController.swift in Sources */,
+				BF0A73DB2350D5B100EBB747 /* TaskListViewController.swift in Sources */,
 				BF0A73DA2350D5B100EBB747 /* AddTaskViewController.swift in Sources */,
 				9F5B107520AC57D100BAE436 /* AppDelegate.swift in Sources */,
 			);

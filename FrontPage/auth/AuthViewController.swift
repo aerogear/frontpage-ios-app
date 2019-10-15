@@ -207,7 +207,7 @@ extension AuthViewController {
   
   func changeView() {
     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! PostTaskViewController
+    let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! TaskListViewController
     self.present(newViewController, animated: true, completion: nil)
     
   }

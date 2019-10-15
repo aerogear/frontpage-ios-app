@@ -2,7 +2,7 @@ import UIKit
 import Apollo
 
 
-class PostTaskViewController: UITableViewController {
+class TaskListViewController: UITableViewController {
   var tasks: [AllTasksQuery.Data.AllTask]? {
     didSet {
       tableView.reloadData()

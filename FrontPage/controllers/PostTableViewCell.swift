@@ -14,7 +14,6 @@ class PostTableViewCell: UITableViewCell {
     taskId = task.id
     titleLabel?.text = task.title
     bylineLabel?.text = task.description
-    votesLabel?.text = "String for now"
   }
   
   @IBAction func delete() {

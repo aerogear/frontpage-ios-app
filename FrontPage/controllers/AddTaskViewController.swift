@@ -3,14 +3,14 @@ import UIKit
 class AddTaskViewController: UIViewController {
   
   
-  @IBOutlet weak var nameField: UITextField!
+  @IBOutlet weak var titleField: UITextField!
   
   @IBOutlet weak var descriptionField: UITextField!
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    nameField.delegate = self
+    titleField.delegate = self
     descriptionField.delegate = self
   }
   
@@ -24,7 +24,7 @@ class AddTaskViewController: UIViewController {
     taskStatus = TaskStatus.open
     
     self.performSegue(withIdentifier: "PostListController", sender: self)
-    apollo.perform(mutation: CreateTaskMutation(title: nameField.text ?? "test1", description: descriptionField.text ?? "description of test1", status: taskStatus  )) { result in
+    apollo.perform(mutation: CreateTaskMutation(title: titleField.text ?? "test1", description: descriptionField.text ?? "description of test1", status: taskStatus  )) { result in
       switch result {
       case .success:
         break
