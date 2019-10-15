@@ -75,4 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
   
+  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+      // When a message is received, send Notification, would be handled by registered ViewController
+      let notification:Notification = Notification(name: Notification.Name(rawValue: "message_received"), object:nil, userInfo:userInfo)
+      NotificationCenter.default.post(notification)
+      print("UPS message received: \(userInfo)")
+      
+      // Send metrics when app is launched due to push notification
+//      PushAnalytics.sendMetricsWhenAppAwoken(applicationState: application.applicationState, userInfo: userInfo)
+      
+      // No additioanl data to fetch
+      fetchCompletionHandler(UIBackgroundFetchResult.noData)
+  }
+  
 }
