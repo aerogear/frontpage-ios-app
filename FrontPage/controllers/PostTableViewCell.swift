@@ -18,7 +18,7 @@ class PostTableViewCell: UITableViewCell {
   @IBAction func delete() {
     guard let taskId = taskId else { return }
     
-    Client.instance.client.perform(mutation: DeleteTaskMutation(id: taskId)) { result in
+    Client.instance.apolloClient.perform(mutation: DeleteTaskMutation(id: taskId)) { result in
       switch result {
       case .success:
         break

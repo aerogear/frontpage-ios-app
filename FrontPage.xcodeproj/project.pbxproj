@@ -14,7 +14,6 @@
 		9F5B107F20AC57D200BAE436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B107D20AC57D200BAE436 /* LaunchScreen.storyboard */; };
 		BF0A73D22350D5B100EBB747 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73C12350D5B100EBB747 /* AuthViewController.swift */; };
 		BF0A73D32350D5B100EBB747 /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73C32350D5B100EBB747 /* ServiceConfig.swift */; };
-		BF0A73D42350D5B100EBB747 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73C42350D5B100EBB747 /* Config.swift */; };
 		BF0A73D52350D5B100EBB747 /* ConfigParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73C52350D5B100EBB747 /* ConfigParser.swift */; };
 		BF0A73D62350D5B100EBB747 /* MobileConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A73C62350D5B100EBB747 /* MobileConfig.swift */; };
 		BF0A73D82350D5B100EBB747 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73CA2350D5B100EBB747 /* schema.json */; };
@@ -24,6 +23,7 @@
 		BF0A73DD2350D5B100EBB747 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73D12350D5B100EBB747 /* schema.graphql */; };
 		BF0A73DF2350D65600EBB747 /* mobile-services.json in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73DE2350D65600EBB747 /* mobile-services.json */; };
 		BF0A74012350DB1B00EBB747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF0A73FF2350DB1B00EBB747 /* Main.storyboard */; };
+		BF8559FA2357243B006F0108 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8559F92357243B006F0108 /* Config.swift */; };
 		BF8DB2242355BBE900B18707 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8DB2232355BBE900B18707 /* Client.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,6 @@
 		9F5B108020AC57D200BAE436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF0A73C12350D5B100EBB747 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		BF0A73C32350D5B100EBB747 /* ServiceConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
-		BF0A73C42350D5B100EBB747 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		BF0A73C52350D5B100EBB747 /* ConfigParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigParser.swift; sourceTree = "<group>"; };
 		BF0A73C62350D5B100EBB747 /* MobileConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileConfig.swift; sourceTree = "<group>"; };
 		BF0A73CA2350D5B100EBB747 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		BF0A73D12350D5B100EBB747 /* schema.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphql; sourceTree = "<group>"; };
 		BF0A73DE2350D65600EBB747 /* mobile-services.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mobile-services.json"; sourceTree = "<group>"; };
 		BF0A74002350DB1B00EBB747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BF8559F92357243B006F0108 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		BF8DB2232355BBE900B18707 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,9 +146,9 @@
 			isa = PBXGroup;
 			children = (
 				BF0A73C32350D5B100EBB747 /* ServiceConfig.swift */,
-				BF0A73C42350D5B100EBB747 /* Config.swift */,
 				BF0A73C52350D5B100EBB747 /* ConfigParser.swift */,
 				BF0A73C62350D5B100EBB747 /* MobileConfig.swift */,
+				BF8559F92357243B006F0108 /* Config.swift */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -305,9 +305,9 @@
 				BF0A73DC2350D5B100EBB747 /* PostTableViewCell.swift in Sources */,
 				9F12A39120AC5A310097DC1B /* API.swift in Sources */,
 				BF0A73D32350D5B100EBB747 /* ServiceConfig.swift in Sources */,
+				BF8559FA2357243B006F0108 /* Config.swift in Sources */,
 				BF0A73D62350D5B100EBB747 /* MobileConfig.swift in Sources */,
 				BF0A73D52350D5B100EBB747 /* ConfigParser.swift in Sources */,
-				BF0A73D42350D5B100EBB747 /* Config.swift in Sources */,
 				BF0A73D22350D5B100EBB747 /* AuthViewController.swift in Sources */,
 				BF0A73DB2350D5B100EBB747 /* TaskListViewController.swift in Sources */,
 				BF0A73DA2350D5B100EBB747 /* AddTaskViewController.swift in Sources */,

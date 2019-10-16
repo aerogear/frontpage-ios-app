@@ -5,20 +5,14 @@ import AppAuth
 
 typealias PostRegistrationCallback = (_ configuration: OIDServiceConfiguration?, _ registrationResponse: OIDRegistrationResponse?) -> Void
 
-let authConfig = config.getConfiguration("keycloak").config ?? ["error": JSONValue.bool(false)]
-let server = authConfig["auth-server-url"]?.getString() ?? "error";
-let realms = authConfig["realm"]?.getString() ?? "error"
-
-let kIssuer: String = server + "/realms/" + realms + "/";
-let kClientID: String? = authConfig["resource"]?.getString() ?? "error";
-let kRedirectURI: String = "com.myapp://restore";
-let AuthStateKey: String = "authState";
+let kIssuer: String = Config.sharedInstance.getKIssuer()
+let kClientID: String? = Config.sharedInstance.getKClientId()
+let kRedirectURI: String = "com.myapp://restore"
 
 class AuthViewController: UIViewController {
-  private static var token : String!
+  let AuthStateKey: String = "authState"
+  
   private var authState: OIDAuthState?
-  
-  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,6 +35,7 @@ extension AuthViewController {
       self.logMessage("Error creating URL for : \(kIssuer)")
       return
     }
+    
     
     self.logMessage("Fetching configuration for issuer: \(issuer)")
     
@@ -138,8 +133,7 @@ extension AuthViewController {
       if let authState = authState {
         
         self.setAuthState(authState)
-        let newToken = authState.lastTokenResponse?.accessToken
-        self.saveToken(token: newToken)
+        Client.token = authState.lastTokenResponse?.accessToken
         self.changeView()
         
       } else {
@@ -210,14 +204,6 @@ extension AuthViewController {
     let newViewController = storyBoard.instantiateViewController(withIdentifier: "PostView") as! TaskListViewController
     self.present(newViewController, animated: true, completion: nil)
     
-  }
-  
-  func getToken() -> String! {
-    return AuthViewController.self.token!
-  }
-  
-  func saveToken(token: String!){
-    AuthViewController.self.token = token
   }
   
 }

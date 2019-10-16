@@ -2,25 +2,20 @@ import Foundation
 import Apollo
 import AppAuth
 
-let config = Config()
-let syncUrl = config.getConfiguration("sync-app")
-let syncConfig = syncUrl.config ?? ["error": JSONValue.bool(false)]
-let syncWs = syncConfig["websocketUrl"]?.getString() ?? "error";
-
 class Client{
   static let instance = Client()
-  let auth = AuthViewController()
+  static var token: String!
   
-  private(set) lazy var client: ApolloClient = {
+  private(set) lazy var apolloClient: ApolloClient = {
     let authPayloads = [
-      "Authorization": "Bearer \(auth.getToken() ?? "")"
+      "Authorization": "Bearer \(Client.token ?? "")"
     ]
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = authPayloads
     
     let map: GraphQLMap = authPayloads
-    let wsEndpointURL = URL(string: syncWs)!
-    let endpointURL = URL(string: syncUrl.url)!
+    let wsEndpointURL = URL(string: Config.sharedInstance.getWsUrl())!
+    let endpointURL = URL(string: Config.sharedInstance.getSyncUrl())!
     let websocket = WebSocketTransport(request: URLRequest(url: wsEndpointURL), connectingPayload: map)
     
     let splitNetworkTransport = SplitNetworkTransport(

@@ -29,7 +29,7 @@ class TaskListViewController: UITableViewController {
   var watcher: GraphQLQueryWatcher<AllTasksQuery>?
   
   func loadData() {
-    watcher = Client.instance.client.watch(query: AllTasksQuery()) { result in
+    watcher = Client.instance.apolloClient.watch(query: AllTasksQuery()) { result in
       switch result {
       case .success(let graphQLResult):
         
@@ -68,13 +68,13 @@ class TaskListViewController: UITableViewController {
   // MARK: - Subscriptions
   
   func deleteSubscription(){
-    Client.instance.client.subscribe(subscription: DeleteSubscription()) { result in
+    Client.instance.apolloClient.subscribe(subscription: DeleteSubscription()) { result in
       self.watcher?.refetch()
     }
   }
   
   func addSubscription(){
-    Client.instance.client.subscribe(subscription: AddSubscription()) { result in
+    Client.instance.apolloClient.subscribe(subscription: AddSubscription()) { result in
       self.watcher?.refetch()
     }
   }
