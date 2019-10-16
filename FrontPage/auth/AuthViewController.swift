@@ -6,10 +6,10 @@ import AppAuth
 typealias PostRegistrationCallback = (_ configuration: OIDServiceConfiguration?, _ registrationResponse: OIDRegistrationResponse?) -> Void
 
 class AuthViewController: UIViewController {
-  let kIssuer: String = Config.sharedInstance.getKIssuer()
-  let kClientID: String? = Config.sharedInstance.getKClientId()
-  let kRedirectURI: String = "com.myapp://restore"
-  let AuthStateKey: String = "authState"
+  private var kIssuer: String = Config.sharedInstance.getKIssuer()
+  private var kClientID: String? = Config.sharedInstance.getKClientId()
+  private var kRedirectURI: String = "com.myapp://restore"
+  private var AuthStateKey: String = "authState"
   
   private var authState: OIDAuthState?
   
