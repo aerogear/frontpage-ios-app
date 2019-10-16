@@ -21,7 +21,7 @@ class Client{
     let splitNetworkTransport = SplitNetworkTransport(
       httpNetworkTransport: HTTPNetworkTransport(
         url: endpointURL,
-        configuration: configuration
+        session: URLSession(configuration: configuration)
       ),
       webSocketNetworkTransport: websocket
     )

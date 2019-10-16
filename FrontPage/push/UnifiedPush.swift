@@ -1,16 +1,13 @@
 import Foundation
 import UIKit
 
-fileprivate let configure = Config()
-
 public class Push {
-    private static let serviceName = "push"
 
     public static let deviceTokenKey = "UnifiedPush.deviceToken"
     public static let apiPath = "rest/registry/device"
 
     public static let instance: Push = {
-        let config = configure.getConfiguration(serviceName)
+      let config = Config.sharedInstance.getPush()
         let httpInterface = Http.instance.getHttp()
         return Push(config, httpInterface)
     }()

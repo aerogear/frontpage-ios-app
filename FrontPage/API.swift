@@ -2,7 +2,7 @@
 
 import Apollo
 
-public enum TaskStatus: RawRepresentable, Equatable, Hashable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+public enum TaskStatus: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
   case `open`
   case assigned
@@ -37,11 +37,22 @@ public enum TaskStatus: RawRepresentable, Equatable, Hashable, Apollo.JSONDecoda
       default: return false
     }
   }
+
+  public static var allCases: [TaskStatus] {
+    return [
+      .open,
+      .assigned,
+      .complete,
+    ]
+  }
 }
 
 public final class DeleteTaskMutation: GraphQLMutation {
+  /// mutation deleteTask($id: ID!) {
+  ///   deleteTask(id: $id)
+  /// }
   public let operationDefinition =
-    "mutation deleteTask($id: ID!) {\n  deleteTask(id: $id)\n}"
+    "mutation deleteTask($id: ID!) { deleteTask(id: $id) }"
 
   public let operationName = "deleteTask"
 
@@ -84,8 +95,14 @@ public final class DeleteTaskMutation: GraphQLMutation {
 }
 
 public final class CreateTaskMutation: GraphQLMutation {
+  /// mutation createTask($title: String!, $description: String!, $status: TaskStatus!) {
+  ///   createTask(title: $title, description: $description, status: $status) {
+  ///     __typename
+  ///     ...TaskFields
+  ///   }
+  /// }
   public let operationDefinition =
-    "mutation createTask($title: String!, $description: String!, $status: TaskStatus!) {\n  createTask(title: $title, description: $description, status: $status) {\n    __typename\n    ...TaskFields\n  }\n}"
+    "mutation createTask($title: String!, $description: String!, $status: TaskStatus!) { createTask(title: $title, description: $description, status: $status) { __typename ...TaskFields } }"
 
   public let operationName = "createTask"
 
@@ -188,8 +205,14 @@ public final class CreateTaskMutation: GraphQLMutation {
 }
 
 public final class DeleteSubscription: GraphQLSubscription {
+  /// subscription delete {
+  ///   taskDeleted {
+  ///     __typename
+  ///     ...TaskFields
+  ///   }
+  /// }
   public let operationDefinition =
-    "subscription delete {\n  taskDeleted {\n    __typename\n    ...TaskFields\n  }\n}"
+    "subscription delete { taskDeleted { __typename ...TaskFields } }"
 
   public let operationName = "delete"
 
@@ -281,8 +304,14 @@ public final class DeleteSubscription: GraphQLSubscription {
 }
 
 public final class AddSubscription: GraphQLSubscription {
+  /// subscription add {
+  ///   taskAdded {
+  ///     __typename
+  ///     ...TaskFields
+  ///   }
+  /// }
   public let operationDefinition =
-    "subscription add {\n  taskAdded {\n    __typename\n    ...TaskFields\n  }\n}"
+    "subscription add { taskAdded { __typename ...TaskFields } }"
 
   public let operationName = "add"
 
@@ -374,8 +403,14 @@ public final class AddSubscription: GraphQLSubscription {
 }
 
 public final class AllTasksQuery: GraphQLQuery {
+  /// query allTasks {
+  ///   allTasks {
+  ///     __typename
+  ///     ...TaskFields
+  ///   }
+  /// }
   public let operationDefinition =
-    "query allTasks {\n  allTasks {\n    __typename\n    ...TaskFields\n  }\n}"
+    "query allTasks { allTasks { __typename ...TaskFields } }"
 
   public let operationName = "allTasks"
 
@@ -467,8 +502,16 @@ public final class AllTasksQuery: GraphQLQuery {
 }
 
 public struct TaskFields: GraphQLFragment {
+  /// fragment TaskFields on Task {
+  ///   __typename
+  ///   id
+  ///   title
+  ///   version
+  ///   description
+  ///   status
+  /// }
   public static let fragmentDefinition =
-    "fragment TaskFields on Task {\n  __typename\n  id\n  title\n  version\n  description\n  status\n}"
+    "fragment TaskFields on Task { __typename id title version description status }"
 
   public static let possibleTypes = ["Task"]
 

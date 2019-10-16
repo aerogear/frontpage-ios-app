@@ -53,7 +53,7 @@
 		17FF80DF2354B2E5005F11E9 /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		17FF80E12354B40F005F11E9 /* HttpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
 		17FF80E32354B5C7005F11E9 /* Http.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Http.swift; sourceTree = "<group>"; };
-		17FF80E52355D8DB005F11E9 /* FrontPage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FrontPage.entitlements; sourceTree = "<group>"; };
+		17FF80E52355D8DB005F11E9 /* FrontPage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FrontPage.entitlements; path = ../FrontPage.entitlements; sourceTree = "<group>"; };
 		530175793A47602FFA35560B /* Pods-FrontPage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FrontPage.release.xcconfig"; path = "Pods/Target Support Files/Pods-FrontPage/Pods-FrontPage.release.xcconfig"; sourceTree = "<group>"; };
 		6972FD3A127F23953FA4CF6E /* Pods-FrontPage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FrontPage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FrontPage/Pods-FrontPage.debug.xcconfig"; sourceTree = "<group>"; };
 		79834A5F2BAB609552638617 /* Pods_FrontPage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FrontPage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,7 +349,6 @@
 				17FF80E02354B2E5005F11E9 /* HttpRequest.swift in Sources */,
 				BF0A73D52350D5B100EBB747 /* ConfigParser.swift in Sources */,
 				17FF80DB2354AEC9005F11E9 /* UnifiedPushCredentials.swift in Sources */,
-				BF0A73D42350D5B100EBB747 /* Config.swift in Sources */,
 				17FF80D82354AE6F005F11E9 /* UnifiedPushConfig.swift in Sources */,
 				BF0A73D22350D5B100EBB747 /* AuthViewController.swift in Sources */,
 				BF0A73DB2350D5B100EBB747 /* TaskListViewController.swift in Sources */,

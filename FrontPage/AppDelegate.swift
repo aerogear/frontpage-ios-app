@@ -8,30 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var currentAuthorizationFlow: OIDExternalUserAgentSession?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {    
-    // bootstrap the registration process by asking the user to 'Accept' and then register with APNS thereafter
-    let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-    UIApplication.shared.registerUserNotificationSettings(settings)
-    UIApplication.shared.registerForRemoteNotifications()
-    
-    // Display all push messages (even the message used to open the app)
-    if let options = launchOptions {
-      if let option = options[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] {
-        let defaults: UserDefaults = UserDefaults.standard;
-        // Send a message received signal to display the notification in the table.
-        if let aps = option["aps"] as? [String: Any] {
-          if let alert = aps["alert"] as? String {
-            defaults.set(alert, forKey: "message_received")
-            defaults.synchronize()
-          } else {
-            if let alert = aps["alert"] as? [String: Any] {
-              let msg = alert["body"]
-              defaults.set(msg, forKey: "message_received")
-              defaults.synchronize()
-            }
-          }
-        }
-      }
-    }
+
+    registerForRemoteNotifications()
     
     return true
   }
@@ -49,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // time to register user with the "AeroGear UnifiedPush Server"
     // perform registration of this device
     do {
+      var pushConfig = UnifiedPushConfig()
       pushConfig.alias = "sample-app"
       pushConfig.categories = ["testing", "sample"]
       let device = Push.instance
@@ -106,4 +85,11 @@ func showToast(controller: UIViewController, message: String, seconds: Double) {
   DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds){
     alert.dismiss(animated: true)
   }
+}
+
+func registerForRemoteNotifications() {
+  // bootstrap the registration process by asking the user to 'Accept' and then register with APNS thereafter
+  let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+  UIApplication.shared.registerUserNotificationSettings(settings)
+  UIApplication.shared.registerForRemoteNotifications()
 }

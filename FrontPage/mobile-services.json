@@ -1,41 +1,41 @@
 {
-  "clientId": "showcase-app",
+  "clientId": "frontpage-app",
   "namespace": "mobile-developer-console",
   "services": [
+    {
+      "config": {
+        "ios": {
+          "variantId": "836efccb-d6ba-4007-8564-7a9aa41b5814",
+          "variantSecret": "868cb43d-80b7-4a95-9bff-7116793bf7be"
+        }
+      },
+      "id": "d58e07d3-f000-11e9-9081-0a07b338f92c",
+      "name": "push",
+      "type": "push",
+      "url": "https://unifiedpush-unifiedpush-proxy-mobile-unifiedpush.apps.ire-586a.open.redhat.com"
+    },
     {
       "config": {
         "auth-server-url": "https://sso-user-sso.apps.ire-586a.open.redhat.com/auth",
         "confidential-port": 0,
         "public-client": true,
-        "realm": "showcase-app-realm",
-        "resource": "showcase-app-client",
+        "realm": "frontpage-app-realm",
+        "resource": "frontpage-app-client",
         "ssl-required": "external"
       },
-      "id": "66882e83-e917-11e9-909a-0a07b338f92c",
+      "id": "1fafffec-f001-11e9-9081-0a07b338f92c",
       "name": "keycloak",
       "type": "keycloak",
       "url": "https://sso-user-sso.apps.ire-586a.open.redhat.com/auth"
     },
     {
       "config": {
-        "websocketUrl": "wss://ionic-showcase-server-showcase.apps.ire-586a.open.redhat.com/graphql"
+        "websocketUrl": "wss://ionic-showcase-server-frontpage.apps.ire-586a.open.redhat.com/graphql"
       },
-      "id": "ff914243-eb4c-11e9-b502-0a07b338f92c",
+      "id": "8d4e9d49-f00a-11e9-9081-0a07b338f92c",
       "name": "sync-app",
       "type": "sync-app",
-      "url": "https://ionic-showcase-server-showcase.apps.ire-586a.open.redhat.com/graphql"
-    },
-    {
-      "config": {
-        "ios": {
-          "variantId": "fdea625f-a67b-4534-af87-44b557d400fe",
-          "variantSecret": "cc956295-1ab3-4ad2-883d-3adaa3017e45"
-        }
-      },
-      "id": "3572c419-ee7a-11e9-8967-0a07b338f92c",
-      "name": "push",
-      "type": "push",
-      "url": "https://unifiedpush-unifiedpush-proxy-mobile-unifiedpush.apps.ire-586a.open.redhat.com"
+      "url": "https://ionic-showcase-server-frontpage.apps.ire-586a.open.redhat.com/graphql"
     }
   ]
 }
