@@ -5,11 +5,10 @@ import AppAuth
 
 typealias PostRegistrationCallback = (_ configuration: OIDServiceConfiguration?, _ registrationResponse: OIDRegistrationResponse?) -> Void
 
-let kIssuer: String = Config.sharedInstance.getKIssuer()
-let kClientID: String? = Config.sharedInstance.getKClientId()
-let kRedirectURI: String = "com.myapp://restore"
-
 class AuthViewController: UIViewController {
+  let kIssuer: String = Config.sharedInstance.getKIssuer()
+  let kClientID: String? = Config.sharedInstance.getKClientId()
+  let kRedirectURI: String = "com.myapp://restore"
   let AuthStateKey: String = "authState"
   
   private var authState: OIDAuthState?
@@ -50,7 +49,7 @@ extension AuthViewController {
       
       self.logMessage("Got configuration: \(config)")
       
-      if let clientId = kClientID {
+      if let clientId = self.kClientID {
         self.doAuthWithAutoCodeExchange(configuration: config, clientID: clientId, clientSecret: nil)
       } else {
         self.doClientRegistration(configuration: config) { configuration, response in
