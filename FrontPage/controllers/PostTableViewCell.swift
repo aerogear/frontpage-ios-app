@@ -1,5 +1,4 @@
 import UIKit
-import Apollo
 
 class PostTableViewCell: UITableViewCell {
   var taskId: String?
@@ -19,7 +18,7 @@ class PostTableViewCell: UITableViewCell {
   @IBAction func delete() {
     guard let taskId = taskId else { return }
     
-    apollo.perform(mutation: DeleteTaskMutation(id: taskId)) { result in
+    Client.instance.apolloClient.perform(mutation: DeleteTaskMutation(id: taskId)) { result in
       switch result {
       case .success:
         break

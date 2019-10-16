@@ -24,7 +24,7 @@ class AddTaskViewController: UIViewController {
     taskStatus = TaskStatus.open
     
     self.performSegue(withIdentifier: "PostListController", sender: self)
-    apollo.perform(mutation: CreateTaskMutation(title: titleField.text ?? "test1", description: descriptionField.text ?? "description of test1", status: taskStatus  )) { result in
+    Client.instance.apolloClient.perform(mutation: CreateTaskMutation(title: titleField.text ?? "test1", description: descriptionField.text ?? "description of test1", status: taskStatus  )) { result in
       switch result {
       case .success:
         break

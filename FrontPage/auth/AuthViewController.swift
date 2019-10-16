@@ -5,16 +5,11 @@ import AppAuth
 
 typealias PostRegistrationCallback = (_ configuration: OIDServiceConfiguration?, _ registrationResponse: OIDRegistrationResponse?) -> Void
 
-let authConfig = config.getConfiguration("keycloak").config ?? ["error": JSONValue.bool(false)]
-let server = authConfig["auth-server-url"]?.getString() ?? "error";
-let realms = authConfig["realm"]?.getString() ?? "error"
-
-let kIssuer: String = server + "/realms/" + realms + "/";
-let kClientID: String? = authConfig["resource"]?.getString() ?? "error";
-let kRedirectURI: String = "com.myapp://restore";
-let AuthStateKey: String = "authState";
-
 class AuthViewController: UIViewController {
+  private var kIssuer: String = Config.sharedInstance.getKIssuer()
+  private var kClientID: String? = Config.sharedInstance.getKClientId()
+  private var kRedirectURI: String = "com.myapp://restore"
+  private var AuthStateKey: String = "authState"
   
   private var authState: OIDAuthState?
   
@@ -25,24 +20,21 @@ class AuthViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if (authState?.isAuthorized ?? false){
-      self.setAuthState(nil)
-      self.changeView()
-    } else {
-      self.authWithAutoCodeExchange()
-    }
+    self.authWithAutoCodeExchange()
   }
 }
 
 // MARK: Authentitcating with code exchange
 
 extension AuthViewController {
+  
   func authWithAutoCodeExchange() {
     
     guard let issuer = URL(string: kIssuer) else {
       self.logMessage("Error creating URL for : \(kIssuer)")
       return
     }
+    
     
     self.logMessage("Fetching configuration for issuer: \(issuer)")
     
@@ -57,7 +49,7 @@ extension AuthViewController {
       
       self.logMessage("Got configuration: \(config)")
       
-      if let clientId = kClientID {
+      if let clientId = self.kClientID {
         self.doAuthWithAutoCodeExchange(configuration: config, clientID: clientId, clientSecret: nil)
       } else {
         self.doClientRegistration(configuration: config) { configuration, response in
@@ -138,8 +130,9 @@ extension AuthViewController {
     appDelegate.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: self) { authState, error in
       
       if let authState = authState {
+        
         self.setAuthState(authState)
-        self.logMessage("Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken ?? "DEFAULT_TOKEN")")
+        Client.token = authState.lastTokenResponse?.accessToken
         self.changeView()
         
       } else {

@@ -1,7 +1,6 @@
 import UIKit
 import Apollo
 
-
 class TaskListViewController: UITableViewController {
   var tasks: [AllTasksQuery.Data.AllTask]? {
     didSet {
@@ -30,7 +29,7 @@ class TaskListViewController: UITableViewController {
   var watcher: GraphQLQueryWatcher<AllTasksQuery>?
   
   func loadData() {
-    watcher = apollo.watch(query: AllTasksQuery()) { result in
+    watcher = Client.instance.apolloClient.watch(query: AllTasksQuery()) { result in
       switch result {
       case .success(let graphQLResult):
         
@@ -69,13 +68,13 @@ class TaskListViewController: UITableViewController {
   // MARK: - Subscriptions
   
   func deleteSubscription(){
-    apollo.subscribe(subscription: DeleteSubscription()) { result in
+    Client.instance.apolloClient.subscribe(subscription: DeleteSubscription()) { result in
       self.watcher?.refetch()
     }
   }
   
   func addSubscription(){
-    apollo.subscribe(subscription: AddSubscription()) { result in
+    Client.instance.apolloClient.subscribe(subscription: AddSubscription()) { result in
       self.watcher?.refetch()
     }
   }
