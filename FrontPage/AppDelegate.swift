@@ -48,10 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     // time to register user with the "AeroGear UnifiedPush Server"
     // perform registration of this device
-    print("This does get called")
     do {
-      pushConfig.alias = "sample-alias"
-      pushConfig.categories = ["demo", "sample"]
+      pushConfig.alias = "sample-app"
+      pushConfig.categories = ["testing", "sample"]
       let device = Push.instance
       
       try device.register(deviceToken,
@@ -71,21 +70,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             NotificationCenter.default.post(notification as Notification)
       })
     } catch {
-      print("Error will trying to register device:\n>>>>\n \(error)\n<<<<")
+      print("Error while trying to register device:\n>>>>\n \(error)\n<<<<")
     }
   }
   
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-      // When a message is received, send Notification, would be handled by registered ViewController
-      let notification:Notification = Notification(name: Notification.Name(rawValue: "message_received"), object:nil, userInfo:userInfo)
-      NotificationCenter.default.post(notification)
-      print("UPS message received: \(userInfo)")
+    print("UPS message received: \(userInfo)")
+    fetchCompletionHandler(UIBackgroundFetchResult.noData)
+
+    // when a PUSH notification is received disply message with the app
+    if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        while let presentedViewController = topController.presentedViewController {
+            topController = presentedViewController
+        }
       
-      // Send metrics when app is launched due to push notification
-//      PushAnalytics.sendMetricsWhenAppAwoken(applicationState: application.applicationState, userInfo: userInfo)
-      
-      // No additioanl data to fetch
-      fetchCompletionHandler(UIBackgroundFetchResult.noData)
+      let response = userInfo["aps"] as! NSDictionary
+      let alert = response["alert"] as! NSDictionary
+      let messageBody: String = alert["body"] as! String
+      showToast(controller: topController, message: messageBody, seconds: 2)
+
+    }
   }
   
+}
+
+func showToast(controller: UIViewController, message: String, seconds: Double) {
+  // Display a pop up message to the user
+  let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+  alert.view.backgroundColor = UIColor.black
+  alert.view.alpha = 0.6
+  alert.view.layer.cornerRadius = 15
+  
+  controller.present(alert, animated: true)
+  
+  DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds){
+    alert.dismiss(animated: true)
+  }
 }

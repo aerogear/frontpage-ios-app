@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-private let configure = Config()
+fileprivate let configure = Config()
 
 public class Push {
     private static let serviceName = "push"
