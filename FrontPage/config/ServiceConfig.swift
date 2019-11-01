@@ -97,4 +97,10 @@ public class ServiceConfig {
     
     return wsUrl
   }
+  
+  public func getPush() -> MobileService!{
+    let service = Config.sharedInstance.getConfiguration("push")
+    
+    return service
+  }
 }

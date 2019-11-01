@@ -1,8 +1,9 @@
 PODS:
-  - Apollo (0.13.0):
-    - Apollo/Core (= 0.13.0)
-  - Apollo/Core (0.13.0)
-  - Apollo/WebSocket (0.13.0):
+  - Alamofire (4.9.0)
+  - Apollo (0.16.1):
+    - Apollo/Core (= 0.16.1)
+  - Apollo/Core (0.16.1)
+  - Apollo/WebSocket (0.16.1):
     - Apollo/Core
     - Starscream (= 3.1.0)
   - AppAuth (1.2.0):
@@ -13,21 +14,24 @@ PODS:
   - Starscream (3.1.0)
 
 DEPENDENCIES:
+  - Alamofire
   - Apollo
   - Apollo/WebSocket
   - AppAuth
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Apollo
     - AppAuth
     - Starscream
 
 SPEC CHECKSUMS:
-  Apollo: 603a59c12046c50f3188f4e5dfdae080d20ded55
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  Apollo: 2b08fca48664d25e1dc8635f0ad128483ccba43b
   AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
   Starscream: 08172b481e145289c4930cb567230fb55897cfa4
 
-PODFILE CHECKSUM: 6d959b35ab48da66d4ee5261243adce690b44f3e
+PODFILE CHECKSUM: 5fe24a386e63d09fcc48bc393f57a98eaf937330
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.3
