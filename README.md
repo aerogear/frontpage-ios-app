@@ -1,10 +1,7 @@
-# Sample Android Native Application
-
-  
+# Sample iOS Native Application
 
 ## Introduction
 
-  
 
 This is a sample iOS Swift application showing use of DataSync, [Keycloak](https://www.keycloak.org/about.html) and Unified Push using native upstream SDK's. Application is sending requests to [Ionic showcase server]([https://github.com/aerogear/ionic-showcase/tree/master/server](https://github.com/aerogear/ionic-showcase/tree/master/server)) which is a GraphQL server.
 
