@@ -2,10 +2,7 @@
 
 ## Introduction
 
-
-This is a sample iOS Swift application showing use of DataSync, [Keycloak](https://www.keycloak.org/about.html) and Unified Push using native upstream SDK's. Application is sending requests to [Ionic showcase server]([https://github.com/aerogear/ionic-showcase/tree/master/server](https://github.com/aerogear/ionic-showcase/tree/master/server)) which is a GraphQL server.
-
-  
+This is a sample iOS Swift application showing use of DataSync, [Keycloak](https://www.keycloak.org/about.html) and Unified Push using native upstream SDK's. Our frontend communicates with [Ionic showcase server]([https://github.com/aerogear/ionic-showcase/tree/master/server](https://github.com/aerogear/ionic-showcase/tree/master/server)) which is a GraphQL server.
 
 - For DataSync, application uses [Apollo Client](https://www.apollographql.com/docs/ios/) to query, mutate and subscribe.
 
@@ -13,23 +10,17 @@ This is a sample iOS Swift application showing use of DataSync, [Keycloak](https
 
 - For Unifiedpush support we are using [Aerogear SDK](https://github.com/aerogear/aerogear-ios-sdk/tree/master/modules/push).
 
-  
-
 ## Implementation
 
 ### 1. DataSync
 
 #### Generating queries, mutations and subscriptions
 
-To generate queries, mutations and subscriptions of running GraphQL server [Apollo Codegen]([https://github.com/apollographql/apollo-tooling](https://github.com/apollographql/apollo-tooling)) was used.
-
-  
+To generate queries, mutations and subscriptions from running GraphQL server we have used [Apollo Codegen]([https://github.com/apollographql/apollo-tooling](https://github.com/apollographql/apollo-tooling)).
 
 #### Creating client
 
 - During initialization of Apollo Client we have to set authorization payloads, which are going to be our `Authorization` credentials, a `Bearer: TOKEN VALUE` and token is received through AppAuth implementation. Then we have to set our `URLSessionConfiguration` and add authorization payloads specified above. We are also providing a `serverUrl` and `webSocketUrl` which in our example, are pulled from `mobile-services.json` file.
-
-  
 
 ```swift
 
@@ -82,12 +73,8 @@ return ApolloClient(networkTransport: splitNetworkTransport)
 
 Once client is build we can use it to run queries, mutations and subscriptions.
 
-  
-
 #### Query
 On application launch, a query is executed and it loads data from the server to our `TaskListViewController` using `GraphQLWatcher<AllTasksQuery>`. A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes. We are instructing our Apollo Client to watch for the provided query and that allows us to fetch that query whenever there's been a mutation or subscription triggered.
-
-  
 
 ```swift
 
@@ -109,8 +96,6 @@ NSLog("Error while fetching query: \(error.localizedDescription)")
 }}}
 
 ```
-
-  
 
 #### Mutation
 
@@ -150,12 +135,9 @@ case .failure(let error):
 NSLog("Error while attempting to upvote post: \(error.localizedDescription)")
 }}
 ```
-
-  
-
 #### Subscriptions
 
-`deleteSubscription` is triggered whenever an item has been deleted from the server while `addSubscription` when an item is added to the list. Once triggered, we are instructing our `watcher` specified in queries to refetch all data, which refreshes the task list.
+`deleteSubscription` is triggered whenever an item has been deleted from the server, while `addSubscription` when an item is added to the server. Once triggered, we are instructing our `watcher` specified in queries, to refetch all data, which refreshes the task list.
 
 ```swift
 
@@ -180,8 +162,6 @@ self.watcher?.refetch()
 
 To implement Keycloak with our app we have used [AppAuth](https://www.keycloak.org/about.html). You will need a keycloak instance running either on OpenShift or you can set it up locally on Ionic Showcase server that has been used in our example app.
 
-  
-
 You will have to provide the following:
 
 -  `kIssuer` - which is the OIDC issuer from which the configuration will be discovered.
@@ -204,8 +184,6 @@ private  var AuthStateKey: String = "authState"
 
 Our next step is to perform authorization with code exchange, first, we need to check if the `kIssuer` has been provided, then we need to fetch configuration for the `kIssuer` provided, which in our case, is Keycloak.
 
-  
-
 ```swift
 
 func  authWithAutoCodeExchange() {
@@ -219,8 +197,6 @@ return
 }
 
 self.logMessage("Fetching configuration for issuer: \(issuer)")
-
-  
 
 OIDAuthorizationService.discoverConfiguration(forIssuer: issuer) { configuration, error in
 
@@ -243,15 +219,11 @@ self.doAuthWithAutoCodeExchange(configuration: config, clientID: clientId, clien
 
 ```
 
-Once we have received configuration and we do have client ID, we can perform next step of authorization with code exchange which needs a configuration, `clientSecret` and `scopes` are optional. First we need to build our request passing in the configuration received, `clientID`, optional `clientSecret` and `scopes`, `redirectUri` and `responseType`. After having our request constructed we can trigger authorization flow and receive the token from the issuer. Once we have the token, we can pass it in to our client builder and from now onwards, any query, mutation or subscription will use the token to communicate with the server.
-
-  
+Once we have received configuration and have client ID, we can perform next step of authorization with code exchange which needs a configuration, `clientSecret` and `scopes` are optional. First we need to build our request passing in the configuration received, `clientID`, optional `clientSecret` and `scopes`, `redirectUri` and `responseType`. After having our request constructed we can trigger authorization flow and receive the token from the issuer. Once we have the token, we can pass it in to our client builder and from now onwards, any query, mutation or subscription will use the token to communicate with the server.
 
 ```swift
 
 func  doAuthWithAutoCodeExchange(configuration: OIDServiceConfiguration, clientID: String, clientSecret: String?) {
-
-  
 
 let request = OIDAuthorizationRequest(configuration: configuration,
 
@@ -266,8 +238,6 @@ redirectURL: redirectURI,
 responseType: OIDResponseTypeCode,
 
 additionalParameters: nil)
-
-  
 
 logMessage("Initiating authorization request with scope: \(request.scope ?? "DEFAULT_SCOPE")")
 
@@ -292,14 +262,16 @@ self.setAuthState(nil)
 ```
 
 ### 3. Unifiedpush implementation
+
 #### External Setup
+
 With in the [Aerogear Unifiefpush Server](https://github.com/aerogear/aerogear-unifiedpush-server) create your application. 
 For creating the application you will need the following information.
 
 - Apple Developer account 
 - APNs client TLS certificate
 
-Once the application variant has been set up the follow information will be required in the mobile-services.json file.
+Once the application variant has been set up the following information will be required in the mobile-services.json file.
 
 - Server URL
 - Variant ID
@@ -383,10 +355,10 @@ func registerForRemoteNotifications() {
 }
 ```
 
-The `Push.instance` does most of the work when with setting up the push configure from the mobile-services.json and creating the http client.
+The `Push.instance` does most of the work when setting up the push configuration from the mobile-services.json and creating the http client.
 Once the device is registered, it can start receiving push messages. 
-These messages can be access when the app is running or when the app is opened by the user clicking on the push notification in the device notification area.
-This happens in side `func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void)`
+These messages can be access when the app is running, or when the app is opened by the user by clicking on the push notification in the device notification area.
+This happens inside `func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void)`
 
 ```swift
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -409,7 +381,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 ```
 
 This formats the received data into a format that can be used in the `showToast()` method. 
-The `showToast()` is an example of what can be do if there is a message received.
+The `showToast()` is an example of what can be done if there is a message received.
 
 ```swift
 func showToast(controller: UIViewController, message: String, seconds: Double) {
@@ -431,8 +403,7 @@ func showToast(controller: UIViewController, message: String, seconds: Double) {
 
 For this example the `mobile-services.json` is saved in `FrontPage`. 
 There are three types of services in the services list. 
-Each of these have the configuration for the different type services.
-The different types of services are:
+Each of these have the configuration for the different type of services which are:
 
 - **sync-app** 
 - **keycloak**
@@ -440,7 +411,7 @@ The different types of services are:
 
 ##### sync-app
 Sync-app holds the configuration for connecting to a graphQL server.
-The JSON object in the services list at minimum needs the fields in the example below.
+The JSON object in the services list, at minimum, needs the fields in the example below.
 
 Working with subscriptions on an Apollo server requires a web socket URL which is placed in the `config` object.
 
@@ -457,7 +428,7 @@ Working with subscriptions on an Apollo server requires a web socket URL which i
 
 ##### Keycloak
 
-The JSON object example below holds the configuration for a keycloak server which would be in the services array.
+The JSON object below holds the configuration for a keycloak server which would be in the services array.
 When the `mobile-service.json` file is parsed this configuration build is converted to a java `Keycloak.class` object.
 
 
@@ -496,13 +467,13 @@ The push configuration follow the format that is below.
 
 ##### Working with the mobile-services file.
 
-To read in the mobile-services.json file, an instance of the `Config` class.
+To read the mobile-services.json file, an instance of the `Config` class is used.
 
 ```swift
 let config = Config.shareInstance
 ```
 
-This creates an object of the mobile-services.json file that now can be access with the following methods.
+This creates an object of the mobile-services.json file that can now be access with the following methods.
 
 - `getKIssuer()` -> returns the realms connection URL as a string.
 - `getKClientId()` -> returns the client Id as a String.
@@ -510,7 +481,7 @@ This creates an object of the mobile-services.json file that now can be access w
 - `getWsUrl()` -> returns the websocket URL as string (websocket protocol).
 - `getPush()` -> returns a full object containing the push configuration.
 
-The values for the methods can then be used to configure the different services.
+The values for the methods can be then used to configure the different services.
 
 The brake down of the mobile-services object can be found in `ForntPage/config/MobileConfig.swift`
 
