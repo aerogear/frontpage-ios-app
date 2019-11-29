@@ -2,34 +2,42 @@
 
 ## Introduction
 
-This is a sample iOS Swift application showing use of DataSync, [Keycloak](https://www.keycloak.org/about.html) and Unified Push using native upstream SDK's. Our frontend communicates with [Ionic showcase server]([https://github.com/aerogear/ionic-showcase/tree/master/server](https://github.com/aerogear/ionic-showcase/tree/master/server)) which is a GraphQL server.
+This is a sample iOS Swift application showing use of DataSync, [Keycloak](https://www.keycloak.org/about.html) and Unified Push using native upstream SDK's. Backend is covered by GraphQL server - [Ionic showcase server](https://github.com/aerogear/ionic-showcase/tree/master/server).
 
-- For DataSync, application uses [Apollo Client](https://www.apollographql.com/docs/ios/) to query, mutate and subscribe.
+- For DataSync - [Apollo Client](https://www.apollographql.com/docs/ios/) to query, mutate and subscribe.
 
-- For authorization we are using [AppAuth](https://github.com/openid/AppAuth-iOS) to connect with Keycloak.
+- For authorization - [AppAuth](https://github.com/openid/AppAuth-iOS) to connect with Keycloak.
 
-- For Unifiedpush support we are using [Aerogear SDK](https://github.com/aerogear/aerogear-ios-sdk/tree/master/modules/push).
+- For Unifiedpush - [Aerogear SDK](https://github.com/aerogear/aerogear-ios-sdk/tree/master/modules/push).
 
-## Implementation
+## DataSync
 
-### 1. DataSync
+### Dependencies Required
 
-#### Generating queries, mutations and subscriptions
+Add to your `Podfile`:
 
-To generate queries, mutations and subscriptions from running GraphQL server we have used [Apollo Codegen]([https://github.com/apollographql/apollo-tooling](https://github.com/apollographql/apollo-tooling)).
+```
+pod 'Apollo'
+pod 'Apollo/WebSocket'
+``` 
 
-#### Creating client
+### Generating queries, mutations and subscriptions
 
-- During initialization of Apollo Client we have to set authorization payloads, which are going to be our `Authorization` credentials, a `Bearer: TOKEN VALUE` and token is received through AppAuth implementation. Then we have to set our `URLSessionConfiguration` and add authorization payloads specified above. We are also providing a `serverUrl` and `webSocketUrl` which in our example, are pulled from `mobile-services.json` file.
+[Apollo Codegen](https://github.com/apollographql/apollo-tooling) is used to generate queries, mutations and subscriptions based off the server side schema.
+
+### 1. Creating client
+
+This part covers setting up the Apollo Client. To find out more information about setting up an Apollo Client visit [Apollo documentation](https://www.apollographql.com/docs/ios/).
+
+- `URLSessionConfiguration` and `authorization payloads` must be specified as well as a `serverUrl` and `webSocketUrl` which in this example, are pulled from `mobile-services.json` file.
+- Authorization payloads are `Authorization` credentials, a `"Bearer: "` string with a token value received during the authorization process.
 
 ```swift
 
 class Client{
 
 static let instance = Client()
-
 static var token: String!
-
 private(set) lazy var apolloClient: ApolloClient = {
 
 let authPayloads = [
@@ -43,13 +51,9 @@ let configuration = URLSessionConfiguration.default
 configuration.httpAdditionalHeaders = authPayloads
 
 let map: GraphQLMap = authPayloads
-
 let wsEndpointURL = URL(string: Config.sharedInstance.getWsUrl())!
-
 let endpointURL = URL(string: Config.sharedInstance.getSyncUrl())!
-
 let websocket = WebSocketTransport(request: URLRequest(url: wsEndpointURL), connectingPayload: map)
-
 let splitNetworkTransport = SplitNetworkTransport(
 
 httpNetworkTransport: HTTPNetworkTransport(
@@ -69,12 +73,12 @@ return ApolloClient(networkTransport: splitNetworkTransport)
 
 ```
 
-#### Using queries, mutation and subscriptions
+### 2. Using queries, mutation and subscriptions
 
-Once client is build we can use it to run queries, mutations and subscriptions.
+Client is used to run queries, mutations and subscriptions. For more information regarding GraphQL queries, mutations and subscriptions follow [Apollo documentation for iOS](https://www.apollographql.com/docs/ios/).
 
 #### Query
-On application launch, a query is executed and it loads data from the server to our `TaskListViewController` using `GraphQLWatcher<AllTasksQuery>`. A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes. We are instructing our Apollo Client to watch for the provided query and that allows us to fetch that query whenever there's been a mutation or subscription triggered.
+On app launch a query is executed and loads data from the server to our `TaskListViewController` using `GraphQLWatcher<AllTasksQuery>`. A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
 
 ```swift
 
@@ -99,7 +103,7 @@ NSLog("Error while fetching query: \(error.localizedDescription)")
 
 #### Mutation
 
-Once `delete` button is pressed we are instructing Apollo Client to perform a `DeleteTaskMutation` which takes in an `ID` of a task and deletes it from the server.
+Once `delete` button is pressed Apollo Client performs a `DeleteTaskMutation` which takes in an `ID` of a task and deletes it from the server.
 
 ```swift
 
@@ -116,9 +120,6 @@ case .success:
 break
 
 case .failure(let error):
-
-NSLog("Error while attempting to upvote post: \(error.localizedDescription)")
-}}}
 ```
 In `addTask` mutation we need to read the data from text fields and pass it in to our `CreateTaskMutation` to add a task to our backend.
 ```swift 
@@ -132,7 +133,6 @@ break
 
 case .failure(let error):
 
-NSLog("Error while attempting to upvote post: \(error.localizedDescription)")
 }}
 ```
 #### Subscriptions
@@ -158,31 +158,29 @@ self.watcher?.refetch()
 }}
 ```
 
-### 2. Keycloak implementation
+## Keycloak implementation
 
-To implement Keycloak with our app we have used [AppAuth](https://www.keycloak.org/about.html). You will need a keycloak instance running either on OpenShift or you can set it up locally on Ionic Showcase server that has been used in our example app.
+[AppAuth](https://www.keycloak.org/about.html) was used to connect with Keycloak. A keycloak instance running either on OpenShift or locally is required. To run locally, follow instructions on [Ionic showcase server](https://github.com/aerogear/ionic-showcase/tree/master/server).
 
-You will have to provide the following:
+In order to be able to connect to Keycloak, following values must be provided. In this example, all below data comes from `mobile-services.json` file.
 
 -  `kIssuer` - which is the OIDC issuer from which the configuration will be discovered.
 -  `kClientID` - ID of the client.
 -  `kRedirectURI` - which is the OAuth redirect URI for the client, `redirectURI` will redirect the client back to the app after authorization.
 -  `AuthStateKey` - NSCoding key for the authState property.
 
-Data in our example comes from `mobile-services.json` file.
-```swift
+More information about above values can be found in [AppAuth docs](https://github.com/openid/AppAuth-iOS).
 
-private  var kIssuer: String = Config.sharedInstance.getKIssuer()
 
-private  var kClientID: String? = Config.sharedInstance.getKClientId()
 
-private  var kRedirectURI: String = "com.myapp://restore"
-
-private  var AuthStateKey: String = "authState"
+### Dependencies Required
+Add to your `Podfile`:
 
 ```
-
-Our next step is to perform authorization with code exchange, first, we need to check if the `kIssuer` has been provided, then we need to fetch configuration for the `kIssuer` provided, which in our case, is Keycloak.
+pod 'AppAuth'
+``` 
+### 1. Fetching well known configuration
+First step is to fetch well known configuration from provided `kIssuer`.
 
 ```swift
 
@@ -218,8 +216,12 @@ self.doAuthWithAutoCodeExchange(configuration: config, clientID: clientId, clien
 }}}
 
 ```
+### 2. Authorization request and obtaining token
 
-Once we have received configuration and have client ID, we can perform next step of authorization with code exchange which needs a configuration, `clientSecret` and `scopes` are optional. First we need to build our request passing in the configuration received, `clientID`, optional `clientSecret` and `scopes`, `redirectUri` and `responseType`. After having our request constructed we can trigger authorization flow and receive the token from the issuer. Once we have the token, we can pass it in to our client builder and from now onwards, any query, mutation or subscription will use the token to communicate with the server.
+- Authorization with code exchange needs a configuration, `clientSecret` and `scopes`, which are optional. 
+- First step is to build authorization request and then triggering authorization flow.
+- When the user is authorized he is redirected back to app and token request is performed. 
+- Once token is received it can be then used in client builder which allows for execution of any query, mutation or subscription.
 
 ```swift
 
@@ -261,46 +263,35 @@ self.setAuthState(nil)
 
 ```
 
-### 3. Unifiedpush implementation
+## Unifiedpush implementation
 
-#### External Setup
+[AeroGear UnifiedPush](https://github.com/aerogear/aerogear-unifiedpush-server) was used as a server that allows sending push notifications to different platforms. 
 
-With in the [Aerogear Unifiefpush Server](https://github.com/aerogear/aerogear-unifiedpush-server) create your application. 
+### Dependencies Required
+Add to your `Podfile`:
+
+```
+pod 'Alamofire'
+``` 
+
+### 1. External Setup
+
+Create your application within the [Aerogear Unifiefpush Server](https://github.com/aerogear/aerogear-unifiedpush-server).  
 For creating the application you will need the following information.
 
-- Apple Developer account 
-- APNs client TLS certificate
+- [Apple Developer account](https://developer.apple.com/) 
+- [APNs client TLS certificate](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_certificate-based_connection_to_apns)
 
-Once the application variant has been set up the following information will be required in the mobile-services.json file.
+Once the application variant has been set up the following information will be required in the mobile-services.json file for this example.
 
 - Server URL
 - Variant ID
 - Variant Secret
 
-The mobile-services.json file is located under the `FrontPage`.
-See the sample configure data below.
-
-```json
-{
-  "config": {
-    "ios": {
-      "variantID": "variantID (e.g. 1234456-234320)",
-      "variantSecret": "variantSecret (e.g. 1234456-234320)"
-    }
-  },
-  "name": "push",
-  "type": "push",
-  "url": "https://push.example.com"
-}
-```
-
-#### Project Setup
+### 2. Project Setup
 
 To create http request this project uses [Alamofire](https://github.com/Alamofire/Alamofire).
 
-```bash
-pod install allamofire
-```
 In `AppDelegate.swift` set up the push configure.
 
 - `func applicationi(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)`  
@@ -313,7 +304,9 @@ pushConfig.alias = "simple-app"
 pushConfig.categories = ["testing",  "sample"]
 ```
 
-Next create an instance of the Push class.
+#### Setting Ups registrar
+
+Create an instance of the Push class.
 
 ```swift
 do {
@@ -341,10 +334,9 @@ do {
 }
 ```
 
-- `func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)`
+#### Asking user for permission
 
-In this application function we register for remote notifications.
-This asks the user for permission to allow push notifications.
+Following asks the user for permission to allow push notifications.
 
 ```swift
 func registerForRemoteNotifications() {
@@ -355,11 +347,11 @@ func registerForRemoteNotifications() {
 }
 ```
 
+#### Using received notifications
+
 The `Push.instance` does most of the work when setting up the push configuration from the mobile-services.json and creating the http client.
 Once the device is registered, it can start receiving push messages. 
 These messages can be access when the app is running, or when the app is opened by the user by clicking on the push notification in the device notification area.
-This happens inside `func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void)`
-
 ```swift
 func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     print("UPS message received: \(userInfo)")
@@ -379,109 +371,3 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
     }
   }
 ```
-
-This formats the received data into a format that can be used in the `showToast()` method. 
-The `showToast()` is an example of what can be done if there is a message received.
-
-```swift
-func showToast(controller: UIViewController, message: String, seconds: Double) {
-  // Display a pop up message to the user
-  let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-    alert.view.backgroundColor = UIColor.black
-    alert.view.alpha = 0.6
-    alert.view.layer.cornerRadius = 15
-
-    controller.present(alert, animated: true)
-
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds){
-      alert.dismiss(animated: true)
-    }
-}
-```
-
-### 4. Mobile-services parser  
-
-For this example the `mobile-services.json` is saved in `FrontPage`. 
-There are three types of services in the services list. 
-Each of these have the configuration for the different type of services which are:
-
-- **sync-app** 
-- **keycloak**
-- **push** 
-
-##### sync-app
-Sync-app holds the configuration for connecting to a graphQL server.
-The JSON object in the services list, at minimum, needs the fields in the example below.
-
-Working with subscriptions on an Apollo server requires a web socket URL which is placed in the `config` object.
-
-```json
-  {
-    "config": {
-      "websocketUrl": "wss://server.example.com/graphql"
-    },
-    "name": "sync-app",
-    "type": "sync-app",
-    "url": "https://server.example.com/graphql"
-  }
-```
-
-##### Keycloak
-
-The JSON object below holds the configuration for a keycloak server which would be in the services array.
-When the `mobile-service.json` file is parsed this configuration build is converted to a java `Keycloak.class` object.
-
-
-```json
-    {
-      "config": {
-        "auth-server-url": "https://sso.example.com/auth",
-        "confidential-port": 0,
-        "public-client": true,
-        "realm": "example-app-realm",
-        "resource": "example-app-client",
-        "ssl-required": "external"
-      },
-      "name": "keycloak",
-      "type": "keycloak",
-      "url": "https://sso.example.com/auth"
-    }
-```
-
-##### Push
-The push configuration follow the format that is below. 
-
-```json
-    {
-      "config": {
-        "ios": {
-          "variantID": "variantID (e.g. 1234456-234320)",
-          "variantSecret": "variantSecret (e.g. 1234456-234320)"
-        }
-      },
-      "name": "push",
-      "type": "push",
-      "url": "https://push.example.com"
-    }
-```
-
-##### Working with the mobile-services file.
-
-To read the mobile-services.json file, an instance of the `Config` class is used.
-
-```swift
-let config = Config.shareInstance
-```
-
-This creates an object of the mobile-services.json file that can now be access with the following methods.
-
-- `getKIssuer()` -> returns the realms connection URL as a string.
-- `getKClientId()` -> returns the client Id as a String.
-- `getSyncUrl()` -> returns the URL as string (HTTP protocol).
-- `getWsUrl()` -> returns the websocket URL as string (websocket protocol).
-- `getPush()` -> returns a full object containing the push configuration.
-
-The values for the methods can be then used to configure the different services.
-
-The brake down of the mobile-services object can be found in `ForntPage/config/MobileConfig.swift`
-
